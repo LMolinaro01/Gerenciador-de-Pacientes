@@ -7,14 +7,18 @@ public class Pacientes {
     private String genero;
     private String faixaEtaria;
     private int idade;
+    private String fisioResponsavel;
+    private String frequencia;
 
-    public Pacientes(String nome, String tratamento, String celular, String genero, String faixaEtaria, int idade){
+    public Pacientes(String nome, String tratamento, String celular, String genero, String faixaEtaria, int idade, String fisioResponsavel, String frequencia){
         this.nome = nome;
         this.tratamento = tratamento;
         this.celular = celular;
         this.genero = genero;
         this.faixaEtaria = faixaEtaria;
         this.idade = idade;
+        this.fisioResponsavel = fisioResponsavel;
+        this.frequencia = frequencia;
     }
 
     public String getNome() {
@@ -22,7 +26,20 @@ public class Pacientes {
     }
 
     public void setNome(String nome){
-        this.nome = nome;
+        try{
+            if (!nome.equals(null) && !nome.isEmpty()){
+                if (nome.matches(".*[;,'\\-+\\.].*")){
+                    System.out.println("O nome não pode conter caracteres especiais.");
+                }
+                else {
+                    this.nome = nome;
+                }
+            }else {
+                System.out.println("O nome não pode estar vazio.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getTratamento(){
@@ -30,7 +47,16 @@ public class Pacientes {
     }
 
     public void setTratamento(String tratamento){
-        this.tratamento = tratamento;
+        try {
+            if (tratamento.equals("Acupuntura") && getIdade() < 5){
+                System.out.println("Tratamento não indicado para esta idade.");
+            }
+            else{
+                this.tratamento = tratamento;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getCelular() {
@@ -39,12 +65,16 @@ public class Pacientes {
 
     public void setCelular(String celular) {
         String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$\n";
-
-        if (celular.matches(validacaoCel)){
-            this.celular = celular;
-        }
-        else{
-            System.out.println("Número de Celular inválido.");
+        try {
+            if (celular.matches(validacaoCel)){
+                this.celular = celular;
+            }
+            else{
+                System.out.println("Número de Celular inválido.");
+            }
+        } catch (Exception e){
+            System.out.println("Houve um Erro na validação do Celular.");
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +83,16 @@ public class Pacientes {
     }
 
     public void setGenero(String genero) {
-        this.genero = genero;
+        try{
+            if (genero.matches(".*[;,'\\-+\\.].*")){
+                System.out.println("O Gênero não pode conter caracteres especiais.");
+            }
+            else {
+                this.genero = genero;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String getFaixaEtaria() {
@@ -61,20 +100,27 @@ public class Pacientes {
     }
 
     public void setFaixaEtaria(String faixaEtaria) {
-        if (getIdade() >= 65){
-            faixaEtaria = "Idoso";
-        } else if (getIdade() >= 25) {
-            faixaEtaria = "Adulto";
-        } else if (getIdade() >= 18) {
-            faixaEtaria = "Jovem Adulto";
-        } else if (getIdade() >= 15) {
-            faixaEtaria = "Adolescente";
-        } else if (getIdade() >= 11){
-            faixaEtaria = "Pré Adolescente";
-        } else if (getIdade() > 0){
-            faixaEtaria = "Infantil";
+        try {
+            if (getIdade() >= 65){
+                faixaEtaria = "Idoso";
+            } else if (getIdade() >= 25) {
+                faixaEtaria = "Adulto";
+            } else if (getIdade() >= 18) {
+                faixaEtaria = "Jovem Adulto";
+            } else if (getIdade() >= 15) {
+                faixaEtaria = "Adolescente";
+            } else if (getIdade() >= 11){
+                faixaEtaria = "Pré Adolescente";
+            } else if (getIdade() > 5){
+                faixaEtaria = "Criança";
+            } else if (getIdade() < 5) {
+                faixaEtaria = "Criança Pequena";
+            }
+            this.faixaEtaria = faixaEtaria;
+        } catch (Exception e){
+            System.out.println("Houve um Erro no cálculo da Faixa Etária.");
+            e.printStackTrace();
         }
-        this.faixaEtaria = faixaEtaria;
     }
 
     public int getIdade() {
@@ -83,14 +129,58 @@ public class Pacientes {
 
     public void setIdade(int idade) {
         try {
-            if (idade > 0 && idade < 130) {
+            if (idade > 0 && idade < 120) {
                 this.idade = idade;
             }
             else {
                 System.out.println("Idade inválida");
             }
         } catch (ClassCastException e){
+            System.out.println("Houve um Erro na validação da Idade.");
             e.printStackTrace();
+        }
+    }
+
+    public String getFisioResponsavel(){
+        return fisioResponsavel;
+    }
+
+    public void setFisioResponsavel(){
+        try{
+            if (!nome.equals(null) && !nome.isEmpty()){
+                if (nome.matches(".*[;,'\\-+\\.].*")){
+                    System.out.println("O Nome do Profissional Responsável não pode conter caracteres especiais.");
+                }
+                else {
+                    this.nome = nome;
+                }
+            }else {
+                System.out.println("O Nome do Profissional Responsável não pode estar vazio.");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public String getFrequencia(){
+        return frequencia;
+    }
+
+    public void setFrequencia(){
+        try{
+            this.frequencia = frequencia;
+        } catch (Exception e){
+            System.out.println("A frequência semanal só pode ser Número (Do tipo inteiro).");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString(){
+        if (getFrequencia() != null){
+            return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\n-Tratamento: " +getTratamento() + "\n-Faixa Etária: " + getFaixaEtaria() + "\n-Frequência Semanal: " + getFrequencia() + " dias por semana." ;
+        } else{
+            return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\nTratamento: " +getTratamento() + "\nFaixa Etária: " + getFaixaEtaria();
         }
     }
 }
