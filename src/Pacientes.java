@@ -10,12 +10,11 @@ public class Pacientes {
     private String fisioResponsavel;
     private String frequencia;
 
-    public Pacientes(String nome, String tratamento, String celular, String genero, String faixaEtaria, int idade, String fisioResponsavel, String frequencia){
+    public Pacientes(String nome, String tratamento, String celular, String genero, int idade, String fisioResponsavel, String frequencia){
         this.nome = nome;
         this.tratamento = tratamento;
         this.celular = celular;
         this.genero = genero;
-        this.faixaEtaria = faixaEtaria;
         this.idade = idade;
         this.fisioResponsavel = fisioResponsavel;
         this.frequencia = frequencia;
@@ -177,10 +176,6 @@ public class Pacientes {
 
     @Override
     public String toString(){
-        if (getFrequencia() != null){
-            return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\n-Tratamento: " +getTratamento() + "\n-Faixa Etária: " + getFaixaEtaria() + "\n-Frequência Semanal: " + getFrequencia() + " dias por semana." ;
-        } else{
-            return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\nTratamento: " +getTratamento() + "\nFaixa Etária: " + getFaixaEtaria();
-        }
+        return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\nTratamento: " +getTratamento() + "\nFaixa Etária: " + getFaixaEtaria();
     }
 }
