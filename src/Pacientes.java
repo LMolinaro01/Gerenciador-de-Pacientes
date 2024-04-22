@@ -18,6 +18,7 @@ public class Pacientes {
         this.idade = idade;
         this.fisioResponsavel = fisioResponsavel;
         this.frequencia = frequencia;
+        faixaEtaria();
     }
 
     public String getNome() {
@@ -63,15 +64,14 @@ public class Pacientes {
     }
 
     public void setCelular(String celular) {
-        String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$\n";
+        String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}-?[0-9]{4}$";
         try {
-            if (celular.matches(validacaoCel)){
+            if (celular.matches(validacaoCel)) {
                 this.celular = celular;
-            }
-            else{
+            } else {
                 System.out.println("Número de Celular inválido.");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Houve um Erro na validação do Celular.");
             e.printStackTrace();
         }
@@ -98,25 +98,24 @@ public class Pacientes {
         return faixaEtaria;
     }
 
-    public void setFaixaEtaria(String faixaEtaria) {
+    private void faixaEtaria() {
         try {
-            if (getIdade() >= 65){
+            if (idade >= 65) {
                 faixaEtaria = "Idoso";
-            } else if (getIdade() >= 25) {
+            } else if (idade >= 25) {
                 faixaEtaria = "Adulto";
-            } else if (getIdade() >= 18) {
+            } else if (idade >= 18) {
                 faixaEtaria = "Jovem Adulto";
-            } else if (getIdade() >= 15) {
+            } else if (idade >= 15) {
                 faixaEtaria = "Adolescente";
-            } else if (getIdade() >= 11){
+            } else if (idade >= 11) {
                 faixaEtaria = "Pré Adolescente";
-            } else if (getIdade() > 5){
+            } else if (idade > 5) {
                 faixaEtaria = "Criança";
-            } else if (getIdade() < 5) {
+            } else if (idade < 5) {
                 faixaEtaria = "Criança Pequena";
             }
-            this.faixaEtaria = faixaEtaria;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Houve um Erro no cálculo da Faixa Etária.");
             e.printStackTrace();
         }
@@ -176,6 +175,6 @@ public class Pacientes {
 
     @Override
     public String toString(){
-        return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\nTratamento: " +getTratamento() + "\nFaixa Etária: " + getFaixaEtaria();
+        return "\nInformações do Paciente: \n\n-Nome: " + getNome() + "\n-Idade: " + getIdade() + "\n-Gênero: " + getGenero() + "\n-Celular: " + getCelular() + "\n-Tratamento: " +getTratamento() + "\n-Faixa Etária: " + getFaixaEtaria();
     }
 }
