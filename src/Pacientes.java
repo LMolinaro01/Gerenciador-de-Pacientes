@@ -64,14 +64,15 @@ public class Pacientes {
     }
 
     public void setCelular(String celular) {
-        String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}-?[0-9]{4}$";
+        String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$\n";
         try {
-            if (celular.matches(validacaoCel)) {
+            if (celular.matches(validacaoCel)){
                 this.celular = celular;
-            } else {
+            }
+            else{
                 System.out.println("Número de Celular inválido.");
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             System.out.println("Houve um Erro na validação do Celular.");
             e.printStackTrace();
         }
