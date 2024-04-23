@@ -10,7 +10,7 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **Edição de Pacientes**: É possível alterar os dados previamente inseridos, corrigindo eventuais equívocos ou atualizando informações quando necessário.
 
-- **Organização de Consultas**: Facilita a visualização dos pacientes de acordo com os dias e horários da semana, proporcionando uma melhor organização para o profissional responsável.
+- **Organização de Consultas / Vizualização dos Pacientes**: Facilita a visualização dos pacientes de acordo com os dias e horários da semana, proporcionando uma melhor organização para o profissional responsável.
 
 - **Integração com Banco de Dados**: Utiliza um banco de dados para armazenar de forma segura e eficiente todas as informações dos pacientes, que serão salvas localmente na máquina do cliente.
 
