@@ -10,6 +10,8 @@ public class Pacientes {
     private String fisioResponsavel;
     private String frequencia;
 
+    //Realizar a conexão com banco de dados (Branch: testeDB)
+
     public Pacientes(String nome, String tratamento, String celular, String genero, int idade, String fisioResponsavel, String frequencia){
         this.nome = nome;
         this.tratamento = tratamento;
