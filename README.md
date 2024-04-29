@@ -4,6 +4,11 @@
 
 Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia desenvolvido como parte de um projeto extensionista da faculdade. O projeto é feito para um cliente e é puramente acadêmico e sem fins lucrativos, focado em solucionar problemas na sociedade utilizando a área de programação orientada a objetos em Java, bem como na integração com banco de dados e criação de interfaces visuais.
 
+Protótipo da Interface gráfica (Projeto em Andamento):
+
+![image](https://github.com/LMolinaro01/Registro-e-Gerenciamento-de-Pacientes/assets/126402616/72991084-e764-482e-8c16-d0a7e2c2a867)
+
+
 ## Funcionalidades Principais
 
 - **Cadastro de Pacientes**: Permite o registro das informações dos pacientes, incluindo dados pessoais e informações relevantes para o tratamento fisioterapêutico.
