@@ -12,7 +12,7 @@ public class Main {
             // Estabelecer a conexão com o banco de dados MySQL
             String url = "jdbc:mysql://localhost:3306/database";
             String user = "root";
-            String password = "root";
+            String password = "Root";
             connection = DriverManager.getConnection(url, user, password);
 
             System.out.println("Conexão bem-sucedida com MySQL!");
