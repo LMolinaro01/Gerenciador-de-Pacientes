@@ -28,7 +28,7 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **MySQL**: Banco de dados relacional utilizado para armazenar e gerenciar os dados dos pacientes, consultas e evoluções do tratamento.
 
-- **Padrão Arquitetônico**: Model View Controller
+- **MVC (Model View Controller)**: Padrão Arquitetônico utilizado no Projeto 
 
 ## Contribuição
 
