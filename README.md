@@ -26,7 +26,9 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **JavaFX**: Biblioteca gráfica do Java utilizada para criar a interface visual do sistema, proporcionando uma experiência de usuário agradável e funcional.
 
-- **PostgreSQL**: Banco de dados relacional utilizado para armazenar e gerenciar os dados dos pacientes, consultas e evoluções do tratamento.
+- **MySQL**: Banco de dados relacional utilizado para armazenar e gerenciar os dados dos pacientes, consultas e evoluções do tratamento.
+
+- **Padrão Arquitetônico**: Model View Controller
 
 ## Contribuição
 
