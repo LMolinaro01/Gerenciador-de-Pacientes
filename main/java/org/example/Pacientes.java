@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Pacientes {
+    private int id;
     private String nome;
     private String tratamento;
     private String celular;
@@ -15,9 +16,8 @@ public class Pacientes {
     private String fisioResponsavel;
     private String frequencia;
 
-    //Realizar a conexão com banco de dados (Branch: testeDB)
-
-    public Pacientes(String nome, String tratamento, String celular, String genero, int idade, String fisioResponsavel, String frequencia){
+    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String fisioResponsavel, String frequencia){
+        this.id = id;
         this.nome = nome;
         this.tratamento = tratamento;
         this.celular = celular;
@@ -26,6 +26,16 @@ public class Pacientes {
         this.fisioResponsavel = fisioResponsavel;
         this.frequencia = frequencia;
         faixaEtaria();
+    }
+
+    public Pacientes(){}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -151,14 +161,14 @@ public class Pacientes {
         return fisioResponsavel;
     }
 
-    public void setFisioResponsavel(){
+    public void setFisioResponsavel(String fisioResponsavel){
         try{
-            if (!nome.equals(null) && !nome.isEmpty()){
-                if (nome.matches(".*[;,'\\-+\\.].*")){
+            if (!fisioResponsavel.equals(null) && !fisioResponsavel.isEmpty()){
+                if (fisioResponsavel.matches(".*[;,'\\-+\\.].*")){
                     System.out.println("O Nome do Profissional Responsável não pode conter caracteres especiais.");
                 }
                 else {
-                    this.nome = nome;
+                    this.fisioResponsavel = fisioResponsavel;
                 }
             }else {
                 System.out.println("O Nome do Profissional Responsável não pode estar vazio.");
@@ -172,7 +182,7 @@ public class Pacientes {
         return frequencia;
     }
 
-    public void setFrequencia(){
+    public void setFrequencia(String frequencia){
         try{
             this.frequencia = frequencia;
         } catch (Exception e){
