@@ -24,9 +24,9 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **Java**: Linguagem de programação principal utilizada para o desenvolvimento do sistema, adotando uma abordagem orientada a objetos.
 
-- **JavaFX**: Biblioteca gráfica do Java utilizada para criar a interface visual do sistema, proporcionando uma experiência de usuário agradável e funcional.
+- **Swing e AWT**: Biblioteca gráfica do Java utilizada para criar a interface visual do sistema, proporcionando uma experiência de usuário agradável e funcional.
 
-- **MySQL**: Banco de dados relacional utilizado para armazenar e gerenciar os dados dos pacientes, consultas e evoluções do tratamento.
+- **SQLite**: Banco de dados relacional utilizado para armazenar e gerenciar os dados dos pacientes, consultas e evoluções do tratamento.
 
 - **MVC (Model View Controller)**: Padrão Arquitetônico utilizado no Projeto 
 
