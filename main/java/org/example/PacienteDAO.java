@@ -17,12 +17,12 @@ public class PacienteDAO {
 
     static {
         queries.put("DATABASE_FILE", "Pacientes.db");
-        queries.put("CREATE_TABLE_SQL", "CREATE TABLE IF NOT EXISTS Pacientes " +
-                "(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, celular TEXT, genero TEXT, idade INTEGER, fisioResponsavel TEXT, frequencia TEXT)");
-        queries.put("INSERT_Paciente_SQL", "INSERT INTO Pacientes (nome, celular, genero, idade, fisioResponsavel, frequencia) VALUES (?,?,?,?,?,?)");
+        queries.put("CREATE_TABLE_SQL", "CREATE TABLE IF NOT EXISTS Pacientes " + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, celular TEXT, genero TEXT, idade INTEGER, tratamento TEXT, fisioResponsavel TEXT, frequencia INTEGER)");
+        queries.put("INSERT_Paciente_SQL", "INSERT INTO Pacientes (nome, celular, genero, idade, tratamento, fisioResponsavel, frequencia) VALUES (?,?,?,?,?,?,?)");
         queries.put("SELECT_ALL_Pacientes_SQL", "SELECT * FROM Pacientes");
-        queries.put("UPDATE_Paciente_SQL", "UPDATE Pacientes SET nome = ?, celular = ?, genero = ?, idade = ?, fisioResponsavel = ?, frequencia = ?  WHERE id = ?");
+        queries.put("UPDATE_Paciente_SQL", "UPDATE Pacientes SET nome = ?, celular = ?, genero = ?, idade = ?, tratamento = ?, fisioResponsavel = ?, frequencia = ?  WHERE id = ?");
         queries.put("DELETE_Paciente_SQL", "DELETE FROM Pacientes WHERE id = ?");
+        queries.put("SELECT_Paciente_BY_ID_SQL", "SELECT * FROM Pacientes WHERE id = ?");
     }
 
     public static String getQuery(String queryKey) {
@@ -70,13 +70,15 @@ public class PacienteDAO {
             statement.setString(2, paciente.getCelular());
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
-            statement.setString(5, paciente.getFisioResponsavel());
-            statement.setString(6, paciente.getFrequencia());
+            statement.setString(5, paciente.getTratamento());
+            statement.setInt(6, paciente.getFrequencia());
+            System.out.println("Frequência definida: " + paciente.getFrequencia());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static void atualizarPaciente(Pacientes paciente) {
         try (PreparedStatement statement = connection.prepareStatement(getQuery("UPDATE_Paciente_SQL"))) {
@@ -84,8 +86,8 @@ public class PacienteDAO {
             statement.setString(2, paciente.getCelular());
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
-            statement.setString(5, paciente.getFisioResponsavel());
-            statement.setString(6, paciente.getFrequencia());
+            statement.setString(5, paciente.getTratamento());
+            statement.setInt(6, paciente.getFrequencia());
             statement.setInt(7, paciente.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -104,14 +106,38 @@ public class PacienteDAO {
                 paciente.setCelular(resultSet.getString("celular"));
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setIdade(resultSet.getInt("idade"));
-                paciente.setFisioResponsavel(resultSet.getString("fisioResponsavel"));
-                paciente.setFrequencia(resultSet.getString("frequencia"));
+                paciente.setTratamento(resultSet.getString("tratamento"));
+                paciente.setFrequencia(resultSet.getInt("frequencia"));
+                paciente.setFaixaEtaria();
                 pacientes.add(paciente);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return pacientes;
+    }
+
+    public static Pacientes buscarPacientePorId(int id) {
+        Pacientes paciente = null;
+        try (PreparedStatement statement = connection.prepareStatement(getQuery("SELECT_Paciente_BY_ID_SQL"))) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    paciente = new Pacientes(
+                            resultSet.getInt("id"),
+                            resultSet.getString("nome"),
+                            resultSet.getString("tratamento"),
+                            resultSet.getString("celular"),
+                            resultSet.getString("genero"),
+                            resultSet.getInt("idade"),
+                            resultSet.getInt("frequencia")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return paciente;
     }
 
     public static void excluirPaciente(int id) {
