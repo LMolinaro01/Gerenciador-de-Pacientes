@@ -105,6 +105,7 @@ public class PacienteDAO {
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setIdade(resultSet.getInt("idade"));
                 //paciente.setFisioResponsavel(resultSet.getString("fisioResponsavel"));
+
                 paciente.setFrequencia(resultSet.getString("frequencia"));
                 pacientes.add(paciente);
             }
