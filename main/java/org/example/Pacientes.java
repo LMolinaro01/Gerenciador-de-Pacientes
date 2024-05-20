@@ -9,9 +9,9 @@ public class Pacientes {
     private String faixaEtaria;
     private int idade;
     //private String fisioResponsavel;
-    private String frequencia;
+    private int frequencia;
 
-    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String frequencia){
+    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, int frequencia){
         this.id = id;
         this.nome = nome;
         this.tratamento = tratamento;
@@ -19,7 +19,6 @@ public class Pacientes {
         this.genero = genero;
         this.idade = idade;
         this.frequencia = frequencia;
-        faixaEtaria();
     }
 
     public Pacientes(){}
@@ -110,7 +109,7 @@ public class Pacientes {
         return faixaEtaria;
     }
 
-    private void faixaEtaria() {
+    public void setFaixaEtaria() {
         try {
             if (idade >= 65) {
                 faixaEtaria = "Idoso";
@@ -172,13 +171,14 @@ public class Pacientes {
         }
     }*/
 
-    public String getFrequencia(){
+    public int getFrequencia(){
         return frequencia;
     }
 
-    public void setFrequencia(String frequencia){
+    public void setFrequencia(int frequencia) {
         this.frequencia = frequencia;
     }
+
 
     @Override
     public String toString(){

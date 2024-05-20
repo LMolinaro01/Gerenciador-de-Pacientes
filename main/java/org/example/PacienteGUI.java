@@ -26,9 +26,9 @@ public class PacienteGUI extends JFrame {
     }
 
     public PacienteGUI(){
-        setTitle("Gerenciador de Usuários");
+        setTitle("Gerenciador de Pacientes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700,500);
+        setSize(825,500);
         setLocationRelativeTo(null);
 
         pacientesTable = new JTable();
@@ -53,14 +53,29 @@ public class PacienteGUI extends JFrame {
         atualizarTabelaPacientes();
 
     }
+
     private void atualizarTabelaPacientes() {
-        List<Pacientes> Pacientes = PacienteDAO.listarPacientes();
-        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Frequencia (Semanal)", "Faixa Etária"}, 0);
-        for (Pacientes Paciente : Pacientes) {
-            tableModel.addRow(new Object[]{Paciente.getId(), Paciente.getNome(), Paciente.getCelular(),Paciente.getGenero(),Paciente.getTratamento(),Paciente.getFrequencia(), Paciente.getFaixaEtaria()});
+        List<Pacientes> pacientesList = PacienteDAO.listarPacientes();
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Frequencia", "Faixa Etária"}, 0);
+
+        for (Pacientes paciente : pacientesList) {
+            tableModel.addRow(new Object[]{
+                    paciente.getId(),
+                    paciente.getNome(),
+                    paciente.getIdade(),
+                    paciente.getCelular(),
+                    paciente.getGenero(),
+                    paciente.getTratamento(),
+                    paciente.getFrequencia(),
+                    paciente.getFaixaEtaria()
+            });
         }
+
         pacientesTable.setModel(tableModel);
+        pacientesTable.repaint();
+
     }
+
 
     private void cadastrarPaciente(){
         JTextField nomeField = new JTextField();
@@ -97,10 +112,11 @@ public class PacienteGUI extends JFrame {
             String idadeStr  = idadeField.getText();
             String tratamento = tratamentoField.getText();
             String genero = generoField.getText();
-            String frequencia = frequenciaField.getText();
+            String frequenciaStr = frequenciaField.getText();
 
-            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !frequencia.isEmpty() ) {
+            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !frequenciaStr.isEmpty()) {
                 int idade = Integer.parseInt(idadeStr);
+                int frequencia = Integer.parseInt(frequenciaStr);
                 Pacientes novoPaciente = new Pacientes();
                 novoPaciente.setNome(nome);
                 novoPaciente.setCelular(celular);
@@ -118,34 +134,95 @@ public class PacienteGUI extends JFrame {
 
     }
 
-    public void editarPaciente(){
+    public void editarPaciente() {
         int linhaSelecionada = pacientesTable.getSelectedRow();
-        if (linhaSelecionada != -1){ // quando nenhuma linha está selecionada, retorna -1
+        if (linhaSelecionada != -1) {
             int id = (int) pacientesTable.getValueAt(linhaSelecionada, 0);
-            String nome = JOptionPane.showInputDialog("Digite o novo nome do contato:");
-            String celular = JOptionPane.showInputDialog("Digite o novo número do celular:");
-            String idadeStr = JOptionPane.showInputDialog("Digite a nova idade:");
-            String tratamento = JOptionPane.showInputDialog("Digite o novo nome do tratamento:");
-            String genero = JOptionPane.showInputDialog("Digite o genero:");
-            String frequencia = JOptionPane.showInputDialog("Digite a nova frequência semanal do paciente:");
+            Pacientes pacienteExistente = PacienteDAO.buscarPacientePorId(id);
+            if (pacienteExistente != null) {
+                String[] opcoes = {"Nome", "Idade", "Celular", "Tratamento", "Gênero", "Frequência"};
+                String escolha = (String) JOptionPane.showInputDialog(null, "Escolha o campo a ser editado:", "Editar Paciente",
+                        JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
-            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !frequencia.isEmpty() ) {
-                int idade = Integer.parseInt(idadeStr);
-                Pacientes novoPaciente = new Pacientes();
-                novoPaciente.setNome(nome);
-                novoPaciente.setCelular(celular);
-                novoPaciente.setIdade(idade);
-                novoPaciente.setTratamento(tratamento);
-                novoPaciente.setGenero(genero);
-                novoPaciente.setFrequencia(frequencia);
+                if (escolha != null) {
+                    switch (escolha) {
+                        case "Nome":
+                            String nome = JOptionPane.showInputDialog("Digite o novo nome do contato:", pacienteExistente.getNome());
+                            if (nome != null && !nome.isEmpty()) {
+                                pacienteExistente.setNome(nome);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Nome inválido.");
+                            }
+                            break;
+                        case "Idade":
+                            String idadeStr = JOptionPane.showInputDialog("Digite a nova idade:", pacienteExistente.getIdade());
+                            if (idadeStr != null && !idadeStr.isEmpty()) {
+                                int idade = Integer.parseInt(idadeStr);
+                                pacienteExistente.setIdade(idade);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Idade inválida.");
+                            }
+                            break;
+                        case "Celular":
+                            String celular = JOptionPane.showInputDialog("Digite o novo número do celular:", pacienteExistente.getCelular());
+                            if (celular != null && !celular.isEmpty()) {
+                                pacienteExistente.setCelular(celular);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Número de celular inválido.");
+                            }
+                            break;
+                        case "Tratamento":
+                            String tratamento = JOptionPane.showInputDialog("Digite o novo nome do tratamento:", pacienteExistente.getTratamento());
+                            if (tratamento != null) {
+                                pacienteExistente.setTratamento(tratamento);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Tratamento inválido.");
+                            }
+                            break;
+                        case "Gênero":
+                            String genero = JOptionPane.showInputDialog("Digite o gênero:", pacienteExistente.getGenero());
+                            if (genero != null && !genero.isEmpty()) {
+                                pacienteExistente.setGenero(genero);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Gênero inválido.");
+                            }
+                            break;
+                        case "Frequência":
+                            String frequenciaStr = JOptionPane.showInputDialog("Digite a nova frequência semanal do paciente:", pacienteExistente.getFrequencia());
+                            if (frequenciaStr != null && !frequenciaStr.isEmpty()) {
+                                try {
+                                    int frequencia = Integer.parseInt(frequenciaStr);
+                                    pacienteExistente.setFrequencia(frequencia);
+                                    PacienteDAO.atualizarPaciente(pacienteExistente);
+                                    atualizarTabelaPacientes();
+                                } catch (NumberFormatException e) {
+                                    JOptionPane.showMessageDialog(this, "Frequência inválida. Insira um número inteiro.");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Frequência inválida.");
+                            }
+                            break;
 
-                PacienteDAO.adicionarPaciente(novoPaciente);
-                atualizarTabelaPacientes();
+                    }
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Por favor, Selecione um Paciente.");
+                JOptionPane.showMessageDialog(this, "Paciente não encontrado.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um paciente para editar.");
         }
     }
+
 
     public void deletarPaciente() {
         int selectedRow = pacientesTable.getSelectedRow();
