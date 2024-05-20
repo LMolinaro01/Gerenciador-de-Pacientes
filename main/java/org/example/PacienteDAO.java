@@ -70,8 +70,8 @@ public class PacienteDAO {
             statement.setString(2, paciente.getCelular());
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
-            statement.setString(5, paciente.getFisioResponsavel());
-            statement.setString(6, paciente.getFrequencia());
+            //statement.setString(5, paciente.getFisioResponsavel());
+            statement.setString(5, paciente.getFrequencia());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,9 +84,9 @@ public class PacienteDAO {
             statement.setString(2, paciente.getCelular());
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
-            statement.setString(5, paciente.getFisioResponsavel());
-            statement.setString(6, paciente.getFrequencia());
-            statement.setInt(7, paciente.getId());
+            //statement.setString(5, paciente.getFisioResponsavel());
+            statement.setString(5, paciente.getFrequencia());
+            statement.setInt(6, paciente.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class PacienteDAO {
                 paciente.setCelular(resultSet.getString("celular"));
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setIdade(resultSet.getInt("idade"));
-                paciente.setFisioResponsavel(resultSet.getString("fisioResponsavel"));
+                //paciente.setFisioResponsavel(resultSet.getString("fisioResponsavel"));
                 paciente.setFrequencia(resultSet.getString("frequencia"));
                 pacientes.add(paciente);
             }
