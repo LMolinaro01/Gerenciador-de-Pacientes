@@ -1,10 +1,5 @@
 package org.example;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
 public class Pacientes {
     private int id;
     private String nome;
@@ -13,17 +8,16 @@ public class Pacientes {
     private String genero;
     private String faixaEtaria;
     private int idade;
-    private String fisioResponsavel;
+    //private String fisioResponsavel;
     private String frequencia;
 
-    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String fisioResponsavel, String frequencia){
+    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String frequencia){
         this.id = id;
         this.nome = nome;
         this.tratamento = tratamento;
         this.celular = celular;
         this.genero = genero;
         this.idade = idade;
-        this.fisioResponsavel = fisioResponsavel;
         this.frequencia = frequencia;
         faixaEtaria();
     }
@@ -81,14 +75,14 @@ public class Pacientes {
     }
 
     public void setCelular(String celular) {
-        String validacaoCel = "^\\(?[1-9]{2}\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\-?[0-9]{4}$\n";
+        //String validacaoCel = "^\\\\(?[1-9]{2}\\\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\\\-?[0-9]{4}$";
         try {
-            if (celular.matches(validacaoCel)){
-                this.celular = celular;
-            }
-            else{
-                System.out.println("Número de Celular inválido.");
-            }
+            //if (celular.matches(validacaoCel)){
+            this.celular = celular;
+            //}
+            //else{
+            System.out.println("Número de Celular inválido.");
+            //}
         } catch (Exception e){
             System.out.println("Houve um Erro na validação do Celular.");
             e.printStackTrace();
@@ -157,7 +151,7 @@ public class Pacientes {
         }
     }
 
-    public String getFisioResponsavel(){
+    /*public String getFisioResponsavel(){
         return fisioResponsavel;
     }
 
@@ -176,19 +170,14 @@ public class Pacientes {
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
+    }*/
 
     public String getFrequencia(){
         return frequencia;
     }
 
     public void setFrequencia(String frequencia){
-        try{
-            this.frequencia = frequencia;
-        } catch (Exception e){
-            System.out.println("A frequência semanal só pode ser Número (Do tipo inteiro).");
-            e.printStackTrace();
-        }
+        this.frequencia = frequencia;
     }
 
     @Override
