@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Dimension;
 
 
 public class PacienteGUI extends JFrame {
@@ -32,8 +33,9 @@ public class PacienteGUI extends JFrame {
     public PacienteGUI() {
         setTitle("Gerenciador de Pacientes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(825, 500);
+        setSize(740, 630);
         setLocationRelativeTo(null);
+        setResizable(false);
 
         pacientesTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(pacientesTable);
@@ -53,11 +55,19 @@ public class PacienteGUI extends JFrame {
         topPanel.add(imagemLabel, BorderLayout.CENTER);
 
         cadastrarButton = new JButton("Adicionar");
-        editarButton = new JButton("Editar");
-        excluirButton = new JButton("Excluir");
-        exibirButton = new JButton("Exibir Pacientes");
+        cadastrarButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        //cadastrarButton.setSize(new Dimension(40, 10)); //largura/altura
 
-        JPanel buttonPanel = new JPanel();
+        editarButton = new JButton("Editar");
+        editarButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+
+        excluirButton = new JButton("Excluir");
+        excluirButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+
+        exibirButton = new JButton("Exibir Pacientes");
+        exibirButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 30, 30)); //(linha, coluna, padx, pady)
         buttonPanel.add(cadastrarButton);
         buttonPanel.add(editarButton);
         buttonPanel.add(excluirButton);
@@ -66,12 +76,12 @@ public class PacienteGUI extends JFrame {
         cadastrarButton.addActionListener(e -> cadastrarPaciente());
         editarButton.addActionListener(e -> editarPaciente());
         excluirButton.addActionListener(e -> deletarPaciente());
+        exibirButton.addActionListener(e -> atualizarTabelaPacientes());
 
         getContentPane().add(topPanel, BorderLayout.NORTH);
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-        atualizarTabelaPacientes();
     }
 
     private void atualizarTabelaPacientes() {
@@ -96,7 +106,6 @@ public class PacienteGUI extends JFrame {
         pacientesTable.repaint();
 
     }
-
 
     private void cadastrarPaciente(){
         JTextField nomeField = new JTextField();
