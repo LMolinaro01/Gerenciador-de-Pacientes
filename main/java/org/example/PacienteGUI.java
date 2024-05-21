@@ -56,7 +56,7 @@ public class PacienteGUI extends JFrame {
 
     private void atualizarTabelaPacientes() {
         List<Pacientes> pacientesList = PacienteDAO.listarPacientes();
-        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Frequencia", "Faixa Etária"}, 0);
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Faixa Etária", "Dia"}, 0);
 
         for (Pacientes paciente : pacientesList) {
             tableModel.addRow(new Object[]{
@@ -66,8 +66,9 @@ public class PacienteGUI extends JFrame {
                     paciente.getCelular(),
                     paciente.getGenero(),
                     paciente.getTratamento(),
-                    paciente.getFrequencia(),
-                    paciente.getFaixaEtaria()
+                    paciente.getFaixaEtaria(),
+                    paciente.getDia()
+
             });
         }
 
@@ -83,7 +84,7 @@ public class PacienteGUI extends JFrame {
         JTextField celularField = new JTextField();
         JTextField tratamentoField = new JTextField();
         JTextField generoField = new JTextField();
-        JTextField frequenciaField = new JTextField();
+        JTextField diaField = new JTextField();
 
         JPanel panel = new JPanel(new GridLayout(3, 2));
         panel.add(new JLabel("Nome:"));
@@ -101,8 +102,9 @@ public class PacienteGUI extends JFrame {
         panel.add(new JLabel("Gênero:"));
         panel.add(generoField);
 
-        panel.add(new JLabel("Frequência:"));
-        panel.add(frequenciaField);
+        panel.add(new JLabel("Dia:"));
+        panel.add(diaField);
+
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Adicionar Contato", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -112,18 +114,18 @@ public class PacienteGUI extends JFrame {
             String idadeStr  = idadeField.getText();
             String tratamento = tratamentoField.getText();
             String genero = generoField.getText();
-            String frequenciaStr = frequenciaField.getText();
+            String dia = diaField.getText();
 
-            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !frequenciaStr.isEmpty()) {
+
+            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !dia.isEmpty()) {
                 int idade = Integer.parseInt(idadeStr);
-                int frequencia = Integer.parseInt(frequenciaStr);
                 Pacientes novoPaciente = new Pacientes();
                 novoPaciente.setNome(nome);
                 novoPaciente.setCelular(celular);
                 novoPaciente.setIdade(idade);
                 novoPaciente.setTratamento(tratamento);
                 novoPaciente.setGenero(genero);
-                novoPaciente.setFrequencia(frequencia);
+                novoPaciente.setDia(dia);
 
                 PacienteDAO.adicionarPaciente(novoPaciente);
                 atualizarTabelaPacientes();
@@ -140,7 +142,7 @@ public class PacienteGUI extends JFrame {
             int id = (int) pacientesTable.getValueAt(linhaSelecionada, 0);
             Pacientes pacienteExistente = PacienteDAO.buscarPacientePorId(id);
             if (pacienteExistente != null) {
-                String[] opcoes = {"Nome", "Idade", "Celular", "Tratamento", "Gênero", "Frequência"};
+                String[] opcoes = {"Nome", "Idade", "Celular", "Tratamento", "Gênero", "Dia"};
                 String escolha = (String) JOptionPane.showInputDialog(null, "Escolha o campo a ser editado:", "Editar Paciente",
                         JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
@@ -197,19 +199,14 @@ public class PacienteGUI extends JFrame {
                                 JOptionPane.showMessageDialog(this, "Gênero inválido.");
                             }
                             break;
-                        case "Frequência":
-                            String frequenciaStr = JOptionPane.showInputDialog("Digite a nova frequência semanal do paciente:", pacienteExistente.getFrequencia());
-                            if (frequenciaStr != null && !frequenciaStr.isEmpty()) {
-                                try {
-                                    int frequencia = Integer.parseInt(frequenciaStr);
-                                    pacienteExistente.setFrequencia(frequencia);
-                                    PacienteDAO.atualizarPaciente(pacienteExistente);
-                                    atualizarTabelaPacientes();
-                                } catch (NumberFormatException e) {
-                                    JOptionPane.showMessageDialog(this, "Frequência inválida. Insira um número inteiro.");
-                                }
+                        case "Dia":
+                            String dia = JOptionPane.showInputDialog("Digite o gênero:", pacienteExistente.getDia());
+                            if (dia != null && !dia.isEmpty()) {
+                                pacienteExistente.setGenero(dia);
+                                PacienteDAO.atualizarPaciente(pacienteExistente);
+                                atualizarTabelaPacientes();
                             } else {
-                                JOptionPane.showMessageDialog(this, "Frequência inválida.");
+                                JOptionPane.showMessageDialog(this, "Dia inválido.");
                             }
                             break;
 
