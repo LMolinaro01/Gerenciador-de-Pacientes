@@ -13,10 +13,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import java.awt.Font;
+import java.awt.Image;
 
 
 public class PacienteGUI extends JFrame {
-    private JButton cadastrarButton, editarButton, excluirButton;
+    private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
     private JTable pacientesTable;
 
     public static void iniciarGUI(){
@@ -25,33 +29,49 @@ public class PacienteGUI extends JFrame {
         });
     }
 
-    public PacienteGUI(){
+    public PacienteGUI() {
         setTitle("Gerenciador de Pacientes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(825,500);
+        setSize(825, 500);
         setLocationRelativeTo(null);
 
         pacientesTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(pacientesTable);
 
+        JLabel tituloLabel = new JLabel("Gerenciador de Pacientes", JLabel.CENTER);
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        tituloLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        ImageIcon icon = new ImageIcon("src/main/java/org/example/LOGO_Fisioterapia.jpg");
+        Image image = icon.getImage();
+        Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        JLabel imagemLabel = new JLabel(icon, JLabel.CENTER);
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(tituloLabel, BorderLayout.NORTH);
+        topPanel.add(imagemLabel, BorderLayout.CENTER);
+
         cadastrarButton = new JButton("Adicionar");
         editarButton = new JButton("Editar");
         excluirButton = new JButton("Excluir");
+        exibirButton = new JButton("Exibir Pacientes");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(cadastrarButton);
         buttonPanel.add(editarButton);
         buttonPanel.add(excluirButton);
+        buttonPanel.add(exibirButton);
 
         cadastrarButton.addActionListener(e -> cadastrarPaciente());
         editarButton.addActionListener(e -> editarPaciente());
         excluirButton.addActionListener(e -> deletarPaciente());
 
+        getContentPane().add(topPanel, BorderLayout.NORTH);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         atualizarTabelaPacientes();
-
     }
 
     private void atualizarTabelaPacientes() {
