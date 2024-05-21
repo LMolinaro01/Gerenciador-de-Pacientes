@@ -122,11 +122,14 @@ public class Pacientes {
                 faixaEtaria = "Adolescente";
             } else if (idade >= 11) {
                 faixaEtaria = "Pré Adolescente";
-            } else if (idade > 5) {
+            } else if (idade >= 5) {
                 faixaEtaria = "Criança";
-            } else if (idade < 5) {
+            } else if (idade >= 3) {
                 faixaEtaria = "Criança Pequena";
+            } else if (idade >= 1) {
+                faixaEtaria = "Bebê";
             }
+
         } catch (Exception e) {
             System.out.println("Houve um Erro no cálculo da Faixa Etária.");
             e.printStackTrace();
@@ -139,7 +142,7 @@ public class Pacientes {
 
     public void setIdade(int idade) {
         try {
-            if (idade > 0 && idade < 120) {
+            if (idade > 0 && idade < 125) {
                 this.idade = idade;
             }
             else {
@@ -156,7 +159,16 @@ public class Pacientes {
     }
 
     public void setDia(String dia) {
-        this.dia = dia;
+        try{
+            if (dia.matches(".*[;,'\\+\\.].*")){
+                System.out.println("O Gênero não pode conter caracteres especiais.");
+            }
+            else {
+                this.dia = dia;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

@@ -117,7 +117,7 @@ public class PacienteGUI extends JFrame {
             String dia = diaField.getText();
 
 
-            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr .isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !dia.isEmpty()) {
+            if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr.isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !dia.isEmpty() && !nome.matches(".*[;,'\\+\\.].*") && !tratamento.matches(".*[;,'\\+\\.].*") && !genero.matches(".*[;,'\\+\\.].*") && !dia.matches(".*[;,'\\+\\.].*")) {
                 int idade = Integer.parseInt(idadeStr);
                 Pacientes novoPaciente = new Pacientes();
                 novoPaciente.setNome(nome);
@@ -129,8 +129,10 @@ public class PacienteGUI extends JFrame {
 
                 PacienteDAO.adicionarPaciente(novoPaciente);
                 atualizarTabelaPacientes();
-            } else {
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos necessários.");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Por favor, preencha corretamente os campos.");
+                cadastrarPaciente();
             }
         }
 
