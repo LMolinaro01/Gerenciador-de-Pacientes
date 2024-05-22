@@ -33,7 +33,7 @@ public class PacienteGUI extends JFrame {
     }
 
     public PacienteGUI() {
-        setTitle("Gerenciador de Pacientes");
+        setTitle("Janela Inicial");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 625);
         setLocationRelativeTo(null);
@@ -164,7 +164,7 @@ public class PacienteGUI extends JFrame {
         UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
         UIManager.put("OptionPane.okButtonText", "Adicionar");
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Adicionar Contato", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(null, panel, "Cadastrar Paciente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 
         if (result == JOptionPane.OK_OPTION) {
@@ -199,7 +199,7 @@ public class PacienteGUI extends JFrame {
     }
 
     private void telaEditar() {
-        JFrame editarFrame = new JFrame("Editar Paciente");
+        JFrame editarFrame = new JFrame("Janela Edição");
         editarFrame.setSize(600, 500);
         editarFrame.setLocationRelativeTo(null);
         editarFrame.setResizable(false);
@@ -344,7 +344,7 @@ public class PacienteGUI extends JFrame {
     }
 
     public void exibirPacientes(){
-        JFrame exibirFrame = new JFrame("Editar Paciente");
+        JFrame exibirFrame = new JFrame("Janela de Exibição");
         exibirFrame.setSize(600, 480);
         exibirFrame.setLocationRelativeTo(null);
         exibirFrame.setResizable(false);;
