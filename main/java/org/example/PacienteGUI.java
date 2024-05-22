@@ -33,12 +33,10 @@ public class PacienteGUI extends JFrame {
     public PacienteGUI() {
         setTitle("Gerenciador de Pacientes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(740, 630);
+        setSize(740, 550);
         setLocationRelativeTo(null);
         setResizable(false);
 
-        pacientesTable = new JTable();
-        JScrollPane scrollPane = new JScrollPane(pacientesTable);
 
         JLabel tituloLabel = new JLabel("Gerenciador de Pacientes", JLabel.CENTER);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -61,26 +59,25 @@ public class PacienteGUI extends JFrame {
         editarButton = new JButton("Editar");
         editarButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
-        excluirButton = new JButton("Excluir");
-        excluirButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        //excluirButton = new JButton("Excluir");
+        //excluirButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
         exibirButton = new JButton("Exibir Pacientes");
         exibirButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 30, 30)); //(linha, coluna, padx, pady)
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 30, 30)); //(linha, coluna, padx, pady)
         buttonPanel.add(cadastrarButton);
         buttonPanel.add(editarButton);
-        buttonPanel.add(excluirButton);
+        //buttonPanel.add(excluirButton);
         buttonPanel.add(exibirButton);
 
         cadastrarButton.addActionListener(e -> cadastrarPaciente());
-        editarButton.addActionListener(e -> editarPaciente());
-        excluirButton.addActionListener(e -> deletarPaciente());
-        exibirButton.addActionListener(e -> atualizarTabelaPacientes());
+        editarButton.addActionListener(e -> telaEditar());
+        //excluirButton.addActionListener(e -> deletarPaciente());
+        exibirButton.addActionListener(e -> exibirPacientes());
 
         getContentPane().add(topPanel, BorderLayout.NORTH);
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(buttonPanel, BorderLayout.CENTER);
 
     }
 
@@ -164,6 +161,38 @@ public class PacienteGUI extends JFrame {
                 cadastrarPaciente();
             }
         }
+
+    }
+
+    private void telaEditar() {
+        JFrame editarFrame = new JFrame("Editar Paciente");
+        editarFrame.setSize(600, 400);
+        editarFrame.setLocationRelativeTo(null);
+        editarFrame.setResizable(false);;
+
+        pacientesTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(pacientesTable);
+
+        editarFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 30, 20)); // Painel para conter os botões
+
+        JButton editarPacienteButton = new JButton("Editar Paciente"); //criei o botão de outra forma (mais simples)
+        editarPacienteButton.addActionListener(e -> editarPaciente());
+        buttonPanel.add(editarPacienteButton);
+
+        JButton deletarButton = new JButton("Deletar");
+        deletarButton.addActionListener(e -> deletarPaciente());
+        buttonPanel.add(deletarButton);
+
+        JButton voltarButton = new JButton("Voltar");
+        voltarButton.addActionListener(e -> editarFrame.dispose());
+        buttonPanel.add(voltarButton);
+
+        editarFrame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        atualizarTabelaPacientes();
+        editarFrame.setVisible(true);
 
     }
 
@@ -251,6 +280,28 @@ public class PacienteGUI extends JFrame {
         }
     }
 
+    public void exibirPacientes(){
+        JFrame exibirFrame = new JFrame("Editar Paciente");
+        exibirFrame.setSize(600, 400);
+        exibirFrame.setLocationRelativeTo(null);
+        exibirFrame.setResizable(false);;
+
+        pacientesTable = new JTable();
+        JScrollPane scrollPane = new JScrollPane(pacientesTable);
+
+        exibirFrame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 30, 20)); // Painel para conter os botões
+
+        JButton voltarButton = new JButton("Voltar");
+        voltarButton.addActionListener(e -> exibirFrame.dispose());
+        buttonPanel.add(voltarButton);
+
+        exibirFrame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+
+        atualizarTabelaPacientes();
+        exibirFrame.setVisible(true);
+    }
 
     public void deletarPaciente() {
         int selectedRow = pacientesTable.getSelectedRow();
@@ -284,4 +335,3 @@ public class PacienteGUI extends JFrame {
     }
 
 }
-
