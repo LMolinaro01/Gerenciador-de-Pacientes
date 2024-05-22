@@ -20,8 +20,7 @@ import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Image;
-
-
+import javax.swing.UIManager;
 
 public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
@@ -137,7 +136,11 @@ public class PacienteGUI extends JFrame {
         JTextField generoField = new JTextField();
         JTextField diaField = new JTextField();
 
-        JPanel panel = new JPanel(new GridLayout(3, 2));
+        Color buttonColor1 = new Color(0, 191, 124);
+        Color buttonTextColor = Color.WHITE;
+        Color borderColor = new Color(0, 69, 44);
+
+        JPanel panel = new JPanel(new GridLayout(6, 1, 10, 10));
         panel.add(new JLabel("Nome:"));
         panel.add(nomeField);
 
@@ -156,8 +159,13 @@ public class PacienteGUI extends JFrame {
         panel.add(new JLabel("Dia:"));
         panel.add(diaField);
 
+        UIManager.put("Button.background", buttonColor1);
+        UIManager.put("Button.foreground", buttonTextColor);
+        UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
+        UIManager.put("OptionPane.okButtonText", "Adicionar");
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Adicionar Contato", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
 
         if (result == JOptionPane.OK_OPTION) {
             String nome = nomeField.getText();
@@ -180,6 +188,7 @@ public class PacienteGUI extends JFrame {
 
                 PacienteDAO.adicionarPaciente(novoPaciente);
                 atualizarTabelaPacientes();
+
             }
             else{
                 JOptionPane.showMessageDialog(this, "Por favor, preencha corretamente os campos.");
