@@ -17,9 +17,10 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **Interface Visual Amigável**: Conta com uma interface gráfica intuitiva e amigável, tornando o uso do sistema mais acessível e fácil para os usuários.
 
-  Protótipo da Interface gráfica (Projeto em Andamento):
+  Tela Inicial (V2):
 
-  ![image](https://github.com/LMolinaro01/Registro-e-Gerenciamento-de-Pacientes/assets/126402616/72991084-e764-482e-8c16-d0a7e2c2a867)
+  ![image](https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/f64b88e6-1327-4313-913f-e7defd2e6827)
+
 ## Tecnologias Utilizadas
 
 - **Java**: Linguagem de programação principal utilizada para o desenvolvimento do sistema, adotando uma abordagem orientada a objetos.
