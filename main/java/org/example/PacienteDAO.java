@@ -17,10 +17,10 @@ public class PacienteDAO {
 
     static {
         queries.put("DATABASE_FILE", "Pacientes.db");
-        queries.put("CREATE_TABLE_SQL", "CREATE TABLE IF NOT EXISTS Pacientes " + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, celular TEXT, genero TEXT, idade INTEGER, tratamento TEXT, fisioResponsavel TEXT, frequencia INTEGER)");
-        queries.put("INSERT_Paciente_SQL", "INSERT INTO Pacientes (nome, celular, genero, idade, tratamento, fisioResponsavel, frequencia) VALUES (?,?,?,?,?,?,?)");
+        queries.put("CREATE_TABLE_SQL", "CREATE TABLE IF NOT EXISTS Pacientes " + "(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, celular TEXT, genero TEXT, idade INTEGER, tratamento TEXT, dia TEXT)");
+        queries.put("INSERT_Paciente_SQL", "INSERT INTO Pacientes (nome, celular, genero, idade, tratamento, dia) VALUES (?,?,?,?,?,?)");
         queries.put("SELECT_ALL_Pacientes_SQL", "SELECT * FROM Pacientes");
-        queries.put("UPDATE_Paciente_SQL", "UPDATE Pacientes SET nome = ?, celular = ?, genero = ?, idade = ?, tratamento = ?, fisioResponsavel = ?, frequencia = ?  WHERE id = ?");
+        queries.put("UPDATE_Paciente_SQL", "UPDATE Pacientes SET nome = ?, celular = ?, genero = ?, idade = ?, tratamento = ?, dia = ? WHERE id = ?");
         queries.put("DELETE_Paciente_SQL", "DELETE FROM Pacientes WHERE id = ?");
         queries.put("SELECT_Paciente_BY_ID_SQL", "SELECT * FROM Pacientes WHERE id = ?");
     }
@@ -71,8 +71,8 @@ public class PacienteDAO {
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
             statement.setString(5, paciente.getTratamento());
-            statement.setInt(6, paciente.getFrequencia());
-            System.out.println("Frequência definida: " + paciente.getFrequencia());
+            statement.setString(6, paciente.getDia());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,8 +87,9 @@ public class PacienteDAO {
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
             statement.setString(5, paciente.getTratamento());
-            statement.setInt(6, paciente.getFrequencia());
-            statement.setInt(7, paciente.getId());
+            statement.setInt(6, paciente.getId());
+            statement.setString(7, paciente.getDia());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,7 +108,8 @@ public class PacienteDAO {
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setIdade(resultSet.getInt("idade"));
                 paciente.setTratamento(resultSet.getString("tratamento"));
-                paciente.setFrequencia(resultSet.getInt("frequencia"));
+                paciente.setDia(resultSet.getString("dia"));
+
                 paciente.setFaixaEtaria();
                 pacientes.add(paciente);
             }
@@ -130,7 +132,7 @@ public class PacienteDAO {
                             resultSet.getString("celular"),
                             resultSet.getString("genero"),
                             resultSet.getInt("idade"),
-                            resultSet.getInt("frequencia")
+                            resultSet.getString("dia")
                     );
                 }
             }

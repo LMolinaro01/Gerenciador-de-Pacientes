@@ -7,18 +7,19 @@ public class Pacientes {
     private String celular;
     private String genero;
     private String faixaEtaria;
+    private String dia;
     private int idade;
-    //private String fisioResponsavel;
     private int frequencia;
+    //private String fisioResponsavel;
 
-    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, int frequencia){
+    public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String dia){
         this.id = id;
         this.nome = nome;
         this.tratamento = tratamento;
         this.celular = celular;
         this.genero = genero;
         this.idade = idade;
-        this.frequencia = frequencia;
+        this.dia = dia;
     }
 
     public Pacientes(){}
@@ -80,7 +81,7 @@ public class Pacientes {
             this.celular = celular;
             //}
             //else{
-            System.out.println("Número de Celular inválido.");
+            //System.out.println("Número de Celular inválido.");
             //}
         } catch (Exception e){
             System.out.println("Houve um Erro na validação do Celular.");
@@ -121,11 +122,14 @@ public class Pacientes {
                 faixaEtaria = "Adolescente";
             } else if (idade >= 11) {
                 faixaEtaria = "Pré Adolescente";
-            } else if (idade > 5) {
+            } else if (idade >= 5) {
                 faixaEtaria = "Criança";
-            } else if (idade < 5) {
+            } else if (idade >= 3) {
                 faixaEtaria = "Criança Pequena";
+            } else if (idade >= 1) {
+                faixaEtaria = "Bebê";
             }
+
         } catch (Exception e) {
             System.out.println("Houve um Erro no cálculo da Faixa Etária.");
             e.printStackTrace();
@@ -138,7 +142,7 @@ public class Pacientes {
 
     public void setIdade(int idade) {
         try {
-            if (idade > 0 && idade < 120) {
+            if (idade > 0 && idade < 125) {
                 this.idade = idade;
             }
             else {
@@ -149,6 +153,24 @@ public class Pacientes {
             e.printStackTrace();
         }
     }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        try{
+            if (dia.matches(".*[;,'\\+\\.].*")){
+                System.out.println("O Gênero não pode conter caracteres especiais.");
+            }
+            else {
+                this.dia = dia;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     /*public String getFisioResponsavel(){
         return fisioResponsavel;
@@ -171,13 +193,6 @@ public class Pacientes {
         }
     }*/
 
-    public int getFrequencia(){
-        return frequencia;
-    }
-
-    public void setFrequencia(int frequencia) {
-        this.frequencia = frequencia;
-    }
 
 
     @Override
