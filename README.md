@@ -20,10 +20,13 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 ## Amostra da Interface Visual
 
 <div style="display: flex; justify-content: space-around;">
-    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/3e0fc6a5-420c-4a29-bc36-38e84405e6d6" alt="Cadastro de Pacientes" style="width: 500px; height: auto;">
+    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/3e0fc6a5-420c-4a29-bc36-38e84405e6d6" alt="Tela Inicial" style="width: 500px; height: auto;">
+    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/a8b49bbe-4c1d-447a-959e-2ed311eddafc" alt="Cadastro de Pacientes" style="width: 500px; height: auto;">
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/2d642e3f-a001-4765-a738-f417088807ee" alt="Visualização de Pacientes" style="width: 500px; height: auto;">
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/e88c29a0-8e85-4faf-9ccf-6a0a662375a0" alt="Integração com Banco de Dados" style="width: 500px; height: auto;">
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/f7fed49f-1695-4e86-b0d4-10edcf8b978c" alt="Interface Visual Amigável" style="width: 500px; height: auto;">
+    
+
 </div>
 
 
