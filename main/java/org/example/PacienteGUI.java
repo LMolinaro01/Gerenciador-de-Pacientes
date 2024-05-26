@@ -24,6 +24,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.event.MouseInputAdapter;
+import java.awt.event.MouseEvent;
 
 public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
@@ -225,6 +227,23 @@ public class PacienteGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(600, 300)); // define o tamanho do scroll pane
         pacientesTable.getTableHeader().setReorderingAllowed(false); // não deixa arrastar as colunas
 
+        pacientesTable.addMouseListener(new MouseInputAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    Object value = target.getValueAt(row, column);
+                    UIManager.put("Button.background", buttonColor1);
+                    UIManager.put("Button.foreground", buttonTextColor);
+                    UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
+                    UIManager.put("OptionPane.okButtonText", "Concluir");
+                    JOptionPane.showMessageDialog(editarFrame, "Valor da Célula: " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        });
+
         // painel de botões e organiza eles verticalmente
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
@@ -356,38 +375,57 @@ public class PacienteGUI extends JFrame {
         }
     }
 
-    public void exibirPacientes(){
+    public void exibirPacientes() {
         JFrame exibirFrame = new JFrame("Janela de Exibição");
         exibirFrame.setSize(700, 480);
         exibirFrame.setLocationRelativeTo(null);
-        exibirFrame.setResizable(false);;
+        exibirFrame.setResizable(false);
 
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
 
-        pacientesTable = new JTable(){
+        pacientesTable = new JTable() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // impede a edição de células clicando duas vezes
             }
         };
+
         JScrollPane scrollPane = new JScrollPane(pacientesTable);
         scrollPane.setPreferredSize(new Dimension(600, 405));
         pacientesTable.getTableHeader().setReorderingAllowed(false);
+
+        // Adicionando listener de duplo clique à tabela
+        pacientesTable.addMouseListener(new MouseInputAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    int column = target.getSelectedColumn();
+                    Object value = target.getValueAt(row, column);
+                    UIManager.put("Button.background", buttonColor1);
+                    UIManager.put("Button.foreground", buttonTextColor);
+                    UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
+                    UIManager.put("OptionPane.okButtonText", "Retornar à Tabela");
+                    JOptionPane.showMessageDialog(exibirFrame, "Valor da Célula: " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        });
 
         exibirFrame.getContentPane().add(scrollPane, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 1, 30, 20)); // Painel para conter os botões
 
-        JButton voltarButton = new JButton("Voltar");
-        voltarButton.addActionListener(e -> exibirFrame.dispose());
-        voltarButton.setBackground(buttonColor1);
-        voltarButton.setForeground(buttonTextColor);
-        voltarButton.setBorder(BorderFactory.createLineBorder(borderColor));
-        voltarButton.setFocusPainted(false);
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> exibirFrame.dispose());
+        okButton.setBackground(buttonColor1);
+        okButton.setForeground(buttonTextColor);
+        okButton.setBorder(BorderFactory.createLineBorder(borderColor));
+        okButton.setFocusPainted(false);
 
-        buttonPanel.add(voltarButton);
+        buttonPanel.add(okButton);
         exibirFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
 
         atualizarTabelaPacientes();
