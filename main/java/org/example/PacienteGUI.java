@@ -140,7 +140,6 @@ public class PacienteGUI extends JFrame {
         JTextField idadeField = new JTextField();
         JTextField celularField = new JTextField();
 
-
         // Dropdown para selecionar o dia da semana
         String[] diasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
         JComboBox<String> diaComboBox = new JComboBox<>(diasSemana);
@@ -301,6 +300,7 @@ public class PacienteGUI extends JFrame {
         if (linhaSelecionada != -1) {
             int id = (int) pacientesTable.getValueAt(linhaSelecionada, 0);
             Pacientes pacienteExistente = PacienteDAO.buscarPacientePorId(id);
+
             if (pacienteExistente != null) {
                 String[] opcoes = {"Nome", "Idade", "Celular", "Tratamento", "Gênero", "Dia"};
                 String escolha = (String) JOptionPane.showInputDialog(null, "Escolha o campo a ser editado:", "Editar Paciente",
@@ -412,8 +412,8 @@ public class PacienteGUI extends JFrame {
                     UIManager.put("Button.background", buttonColor1);
                     UIManager.put("Button.foreground", buttonTextColor);
                     UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
-                    UIManager.put("OptionPane.okButtonText", "Retornar à Tabela");
-                    JOptionPane.showMessageDialog(exibirFrame, "Valor da Célula: " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
+                    UIManager.put("OptionPane.okButtonText", "Concluído");
+                    JOptionPane.showMessageDialog(exibirFrame, "Valor da Célula:  " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
                 }
             }
         });
