@@ -26,6 +26,7 @@ import java.awt.FlowLayout;
 import java.util.List;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
 
 public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
@@ -134,19 +135,27 @@ public class PacienteGUI extends JFrame {
 
     }
 
-    private void cadastrarPaciente(){
+    private void cadastrarPaciente() {
         JTextField nomeField = new JTextField();
         JTextField idadeField = new JTextField();
         JTextField celularField = new JTextField();
-        JTextField tratamentoField = new JTextField();
-        JTextField generoField = new JTextField();
-        JTextField diaField = new JTextField();
+
+
+        // Dropdown para selecionar o dia da semana
+        String[] diasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+        JComboBox<String> diaComboBox = new JComboBox<>(diasSemana);
+
+        String[] generos = {"Masculino", "Feminino", "Não Binário", "Homem Trans", "Mulher Trans", "Outro"};
+        JComboBox<String> generoComboBox = new JComboBox<>(generos);
+
+        String[] tiposTratamento = {"Fisioterapia", "RPG", "Acupuntura"};
+        JComboBox<String> tratamentoComboBox = new JComboBox<>(tiposTratamento);
 
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
 
-        JPanel panel = new JPanel(new GridLayout(6, 1, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(7, 2, 10, 10));
         panel.add(new JLabel("Nome:"));
         panel.add(nomeField);
 
@@ -157,13 +166,13 @@ public class PacienteGUI extends JFrame {
         panel.add(celularField);
 
         panel.add(new JLabel("Tratamento:"));
-        panel.add(tratamentoField);
+        panel.add(tratamentoComboBox);
 
         panel.add(new JLabel("Gênero:"));
-        panel.add(generoField);
+        panel.add(generoComboBox);
 
         panel.add(new JLabel("Dia:"));
-        panel.add(diaField);
+        panel.add(diaComboBox);
 
         UIManager.put("Button.background", buttonColor1);
         UIManager.put("Button.foreground", buttonTextColor);
@@ -172,15 +181,13 @@ public class PacienteGUI extends JFrame {
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Cadastrar Paciente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-
         if (result == JOptionPane.OK_OPTION) {
             String nome = nomeField.getText();
             String celular = celularField.getText();
             String idadeStr  = idadeField.getText();
-            String tratamento = tratamentoField.getText();
-            String genero = generoField.getText();
-            String dia = diaField.getText();
-
+            String tratamento = (String) tratamentoComboBox.getSelectedItem();
+            String genero = (String) generoComboBox.getSelectedItem();
+            String dia = (String) diaComboBox.getSelectedItem();
 
             if (!nome.isEmpty() && !celular.isEmpty() && !idadeStr.isEmpty() && !tratamento.isEmpty() && !genero.isEmpty() && !dia.isEmpty() && !nome.matches(".*[;,'\\+\\.].*") && !tratamento.matches(".*[;,'\\+\\.].*") && !genero.matches(".*[;,'\\+\\.].*") && !dia.matches(".*[;,'\\+\\.].*")) {
                 int idade = Integer.parseInt(idadeStr);
@@ -194,14 +201,11 @@ public class PacienteGUI extends JFrame {
 
                 PacienteDAO.adicionarPaciente(novoPaciente);
                 atualizarTabelaPacientes();
-
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Por favor, preencha corretamente os campos.");
                 cadastrarPaciente();
             }
         }
-
     }
 
     private void telaEditar() {
@@ -239,7 +243,7 @@ public class PacienteGUI extends JFrame {
                     UIManager.put("Button.foreground", buttonTextColor);
                     UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
                     UIManager.put("OptionPane.okButtonText", "Concluir");
-                    JOptionPane.showMessageDialog(editarFrame, "Valor da Célula: " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(editarFrame, "Valor da Célula:  " + value, "Informação", JOptionPane.PLAIN_MESSAGE);
                 }
             }
         });
