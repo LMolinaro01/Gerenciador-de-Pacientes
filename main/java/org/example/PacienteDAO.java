@@ -87,14 +87,15 @@ public class PacienteDAO {
             statement.setString(3, paciente.getGenero());
             statement.setInt(4, paciente.getIdade());
             statement.setString(5, paciente.getTratamento());
-            statement.setInt(6, paciente.getId());
-            statement.setString(7, paciente.getDia());
+            statement.setString(6, paciente.getDia());
+            statement.setInt(7, paciente.getId());
 
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static List<Pacientes> listarPacientes() {
         List<Pacientes> pacientes = new ArrayList<>();

@@ -10,18 +10,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.UIManager;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.BorderFactory;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Image;
-
-
+import java.awt.FlowLayout;
+import java.util.List;
 
 public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
@@ -34,12 +36,13 @@ public class PacienteGUI extends JFrame {
     }
 
     public PacienteGUI() {
-        setTitle("Gerenciador de Pacientes");
+        setTitle("Janela Inicial");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 625);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        setLocationRelativeTo(null); //centraliza a janela na tela
+        setResizable(false);// Impede que a janela seja redimensionada
 
+        // definindo as cores dos botões
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonColor2 = new Color(0, 159, 98);
         Color buttonColor3 = new Color(0, 114, 67);
@@ -137,7 +140,11 @@ public class PacienteGUI extends JFrame {
         JTextField generoField = new JTextField();
         JTextField diaField = new JTextField();
 
-        JPanel panel = new JPanel(new GridLayout(3, 2));
+        Color buttonColor1 = new Color(0, 191, 124);
+        Color buttonTextColor = Color.WHITE;
+        Color borderColor = new Color(0, 69, 44);
+
+        JPanel panel = new JPanel(new GridLayout(6, 1, 10, 10));
         panel.add(new JLabel("Nome:"));
         panel.add(nomeField);
 
@@ -156,8 +163,13 @@ public class PacienteGUI extends JFrame {
         panel.add(new JLabel("Dia:"));
         panel.add(diaField);
 
+        UIManager.put("Button.background", buttonColor1);
+        UIManager.put("Button.foreground", buttonTextColor);
+        UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
+        UIManager.put("OptionPane.okButtonText", "Adicionar");
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Adicionar Contato", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(null, panel, "Cadastrar Paciente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
 
         if (result == JOptionPane.OK_OPTION) {
             String nome = nomeField.getText();
@@ -180,6 +192,7 @@ public class PacienteGUI extends JFrame {
 
                 PacienteDAO.adicionarPaciente(novoPaciente);
                 atualizarTabelaPacientes();
+
             }
             else{
                 JOptionPane.showMessageDialog(this, "Por favor, preencha corretamente os campos.");
@@ -190,64 +203,74 @@ public class PacienteGUI extends JFrame {
     }
 
     private void telaEditar() {
-        JFrame editarFrame = new JFrame("Editar Paciente");
-        editarFrame.setSize(600, 500);
+        JFrame editarFrame = new JFrame("Janela Edição");
+
+        editarFrame.setSize(700, 500);
         editarFrame.setLocationRelativeTo(null);
         editarFrame.setResizable(false);
 
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonColor2 = new Color(0, 159, 98);
         Color buttonColor3 = new Color(0, 114, 67);
-        Color buttonColor4 = new Color(0, 81, 53);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
-
 
         pacientesTable = new JTable(){
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // impede a edição de células clicando duas vezes
+                return false; // impede a edição das células clicando duas vezes
             }
         };
-        JScrollPane scrollPane = new JScrollPane(pacientesTable);
-        scrollPane.setPreferredSize(new Dimension(600, 300));
-        pacientesTable.getTableHeader().setReorderingAllowed(false); //não deixa arrastar as colunas
+        JScrollPane scrollPane = new JScrollPane(pacientesTable); // coloca a tabela em um scroll pane
+        scrollPane.setPreferredSize(new Dimension(600, 300)); // define o tamanho do scroll pane
+        pacientesTable.getTableHeader().setReorderingAllowed(false); // não deixa arrastar as colunas
 
-        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 30, 20)); // Painel para conter os botões
+        // painel de botões e organiza eles verticalmente
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50)); // espaçamento ao redor dos botões
 
-        JButton editarPacienteButton = new JButton("Editar Paciente"); //criei o botão de outra forma (mais simples)
+        Dimension buttonSize = new Dimension(600, 50); // tamanho máximo dos botões
+
+        JButton editarPacienteButton = new JButton("Editar Paciente");
         editarPacienteButton.setBackground(buttonColor1);
         editarPacienteButton.setForeground(buttonTextColor);
         editarPacienteButton.setBorder(BorderFactory.createLineBorder(borderColor));
         editarPacienteButton.setFocusPainted(false);
+        editarPacienteButton.setPreferredSize(buttonSize);
+        editarPacienteButton.setMaximumSize(buttonSize);
 
         JButton deletarButton = new JButton("Deletar");
         deletarButton.setBackground(buttonColor2);
         deletarButton.setForeground(buttonTextColor);
         deletarButton.setBorder(BorderFactory.createLineBorder(borderColor));
         deletarButton.setFocusPainted(false);
+        deletarButton.setPreferredSize(buttonSize);
+        deletarButton.setMaximumSize(buttonSize);
 
         JButton voltarButton = new JButton("Voltar");
         voltarButton.setBackground(buttonColor3);
         voltarButton.setForeground(buttonTextColor);
         voltarButton.setBorder(BorderFactory.createLineBorder(borderColor));
         voltarButton.setFocusPainted(false);
+        voltarButton.setPreferredSize(buttonSize);
+        voltarButton.setMaximumSize(buttonSize);
 
         buttonPanel.add(editarPacienteButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // espaçamento vertical
         buttonPanel.add(deletarButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // espaçamento vertical
         buttonPanel.add(voltarButton);
 
         editarPacienteButton.addActionListener(e -> editarPaciente());
-        deletarButton.addActionListener(e -> deletarPaciente());
+        deletarButton.addActionListener(e -> deletarPaciente(editarFrame));
         voltarButton.addActionListener(e -> editarFrame.dispose());
 
         editarFrame.getContentPane().add(scrollPane, BorderLayout.NORTH);
         editarFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
 
-
         atualizarTabelaPacientes();
         editarFrame.setVisible(true);
-
     }
 
     public void editarPaciente() {
@@ -314,16 +337,15 @@ public class PacienteGUI extends JFrame {
                             }
                             break;
                         case "Dia":
-                            String dia = JOptionPane.showInputDialog("Digite o gênero:", pacienteExistente.getDia());
+                            String dia = JOptionPane.showInputDialog("Digite o dia:", pacienteExistente.getDia());
                             if (dia != null && !dia.isEmpty()) {
-                                pacienteExistente.setGenero(dia);
+                                pacienteExistente.setDia(dia); // Corrigido para definir o dia
                                 PacienteDAO.atualizarPaciente(pacienteExistente);
                                 atualizarTabelaPacientes();
                             } else {
                                 JOptionPane.showMessageDialog(this, "Dia inválido.");
                             }
                             break;
-
                     }
                 }
             } else {
@@ -335,8 +357,8 @@ public class PacienteGUI extends JFrame {
     }
 
     public void exibirPacientes(){
-        JFrame exibirFrame = new JFrame("Editar Paciente");
-        exibirFrame.setSize(600, 480);
+        JFrame exibirFrame = new JFrame("Janela de Exibição");
+        exibirFrame.setSize(700, 480);
         exibirFrame.setLocationRelativeTo(null);
         exibirFrame.setResizable(false);;
 
@@ -372,15 +394,16 @@ public class PacienteGUI extends JFrame {
         exibirFrame.setVisible(true);
     }
 
-    public void deletarPaciente() {
+    public void deletarPaciente(JFrame editarFrame) {
         int selectedRow = pacientesTable.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) pacientesTable.getValueAt(selectedRow, 0);
+            String nomePaciente = (String) pacientesTable.getValueAt(selectedRow, 1); // Assumindo que o nome está na segunda coluna
 
-            // cria uma mensagem de confirmação
+            // cria uma mensagem de confirmação com o nome do paciente
             int confirm = JOptionPane.showConfirmDialog(
-                    this,
-                    "Você realmente deseja excluir este paciente?",
+                    editarFrame, // Passa o frame como pai para manter o foco
+                    "Você realmente deseja excluir o paciente '" + nomePaciente + "' ?",
                     "ATENÇÃO!",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE
@@ -392,7 +415,7 @@ public class PacienteGUI extends JFrame {
                 atualizarTabelaPacientes();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um paciente para excluir.");
+            JOptionPane.showMessageDialog(editarFrame, "Selecione um paciente para excluir.");
         }
     }
 

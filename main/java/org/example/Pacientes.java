@@ -145,9 +145,7 @@ public class Pacientes {
             if (idade > 0 && idade < 125) {
                 this.idade = idade;
             }
-            else {
-                System.out.println("Idade inválida");
-            }
+
         } catch (ClassCastException e){
             System.out.println("Houve um Erro na validação da Idade.");
             e.printStackTrace();
