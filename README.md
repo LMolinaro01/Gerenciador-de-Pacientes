@@ -1,5 +1,3 @@
-<i>(Projeto em Andamento. Data limite: Meados de Junho) </i>
-
 # Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia
 
 Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia desenvolvido como parte de um projeto extensionista da faculdade. O projeto é feito para um cliente e é puramente acadêmico e sem fins lucrativos, focado em solucionar problemas na sociedade utilizando a área de programação orientada a objetos em Java, bem como na integração com banco de dados e criação de interfaces visuais.
