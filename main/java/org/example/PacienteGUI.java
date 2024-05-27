@@ -23,10 +23,14 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.FlowLayout;
-import java.util.List;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
+import java.util.List;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
+
 
 public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
@@ -111,6 +115,11 @@ public class PacienteGUI extends JFrame {
 
         getContentPane().add(topPanel, BorderLayout.NORTH);
         getContentPane().add(buttonPanel, BorderLayout.CENTER);
+
+        UIManager.put("Button.background", buttonColor1);
+        UIManager.put("Button.foreground", buttonTextColor);
+        UIManager.put("Button.border", BorderFactory.createLineBorder(borderColor));
+        UIManager.put("OptionPane.okButtonText", "Concluir"); //definir o padrão ao iniciar o programa
 
     }
 
@@ -388,6 +397,8 @@ public class PacienteGUI extends JFrame {
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
+        Color colorDrop = new Color(42, 148, 108, 233);
+
 
         pacientesTable = new JTable() {
             @Override
@@ -397,14 +408,13 @@ public class PacienteGUI extends JFrame {
         };
 
         JScrollPane scrollPane = new JScrollPane(pacientesTable);
-        scrollPane.setPreferredSize(new Dimension(600, 405));
+        scrollPane.setPreferredSize(new Dimension(600, 378));
         pacientesTable.getTableHeader().setReorderingAllowed(false);
 
-        // Adicionando listener de duplo clique à tabela
+        // duplo clique à tabela
         pacientesTable.addMouseListener(new MouseInputAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
                     int column = target.getSelectedColumn();
@@ -418,7 +428,27 @@ public class PacienteGUI extends JFrame {
             }
         });
 
-        exibirFrame.getContentPane().add(scrollPane, BorderLayout.NORTH);
+        JPanel topPanel = new JPanel(new BorderLayout());
+        JLabel ordenarLabel = new JLabel("Ordenar por:");
+        String[] opcoesOrdenacao = { "ID", "Ordem alfabética", "Dia da Semana", "Tratamento", "Idade", "Gênero"};
+        JComboBox<String> ordenarComboBox = new JComboBox<>(opcoesOrdenacao);
+        Color whiteColor = Color.WHITE;
+
+        ordenarComboBox.addActionListener(e -> {
+            String selecao = (String) ordenarComboBox.getSelectedItem();
+            ordenarPacientes(selecao);
+        });
+
+        JPanel ordenarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        ordenarPanel.add(ordenarLabel);
+        ordenarPanel.add(ordenarComboBox);
+        ordenarComboBox.setBackground(colorDrop);
+        ordenarComboBox.setForeground(whiteColor);
+
+        topPanel.add(ordenarPanel, BorderLayout.NORTH);
+        topPanel.add(scrollPane, BorderLayout.CENTER);
+
+        exibirFrame.getContentPane().add(topPanel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 1, 30, 20)); // Painel para conter os botões
 
@@ -435,6 +465,65 @@ public class PacienteGUI extends JFrame {
         atualizarTabelaPacientes();
         exibirFrame.setVisible(true);
     }
+
+    private void ordenarPacientes(String criterio) {
+        List<Pacientes> pacientesList = PacienteDAO.listarPacientes();
+
+        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Faixa Etária", "Dia"}, 0);
+
+        pacientesTable.setModel(tableModel);
+        pacientesTable.repaint();
+
+        switch (criterio) {
+            case "Ordem alfabética":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparing(Pacientes::getNome))
+                        .collect(Collectors.toList());
+                break;
+            case "ID":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparing(Pacientes::getId))
+                        .collect(Collectors.toList());
+                break;
+            case "Idade":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparingInt(Pacientes::getIdade))
+                        .collect(Collectors.toList());
+                break;
+            case "Gênero":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparing(Pacientes::getGenero))
+                        .collect(Collectors.toList());
+                break;
+            case "Tratamento":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparing(Pacientes::getTratamento))
+                        .collect(Collectors.toList());
+                break;
+            case "Dia da Semana":
+                pacientesList = pacientesList.stream()
+                        .sorted(Comparator.comparing(Pacientes::getDia))
+                        .collect(Collectors.toList());
+                break;
+        }
+
+        for (Pacientes paciente : pacientesList) {
+            tableModel.addRow(new Object[]{
+                    paciente.getId(),
+                    paciente.getNome(),
+                    paciente.getIdade(),
+                    paciente.getCelular(),
+                    paciente.getGenero(),
+                    paciente.getTratamento(),
+                    paciente.getFaixaEtaria(),
+                    paciente.getDia()
+            });
+        }
+
+        pacientesTable.setModel(tableModel);
+        pacientesTable.repaint();
+    }
+
 
     public void deletarPaciente(JFrame editarFrame) {
         int selectedRow = pacientesTable.getSelectedRow();
