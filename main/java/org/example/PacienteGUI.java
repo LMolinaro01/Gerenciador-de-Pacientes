@@ -29,6 +29,7 @@ import javax.swing.JComboBox;
 import java.util.List;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.awt.event.MouseAdapter;
 
 
 
@@ -149,19 +150,27 @@ public class PacienteGUI extends JFrame {
         JTextField idadeField = new JTextField();
         JTextField celularField = new JTextField();
 
-        // Dropdown para selecionar o dia da semana
-        String[] diasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
-        JComboBox<String> diaComboBox = new JComboBox<>(diasSemana);
-
-        String[] generos = {"Masculino", "Feminino", "Não Binário", "Homem Trans", "Mulher Trans", "Outro"};
-        JComboBox<String> generoComboBox = new JComboBox<>(generos);
-
-        String[] tiposTratamento = {"Fisioterapia", "RPG", "Acupuntura"};
-        JComboBox<String> tratamentoComboBox = new JComboBox<>(tiposTratamento);
-
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
+        Color colorDrop = new Color(42, 148, 108, 233);
+
+
+        // Dropdown para selecionar o dia da semana
+        String[] diasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+        JComboBox<String> diaComboBox = new JComboBox<>(diasSemana);
+        diaComboBox.setBackground(colorDrop);
+        diaComboBox.setForeground(buttonTextColor);
+
+        String[] generos = {"Masculino", "Feminino", "Não Binário", "Homem Trans", "Mulher Trans", "Outro"};
+        JComboBox<String> generoComboBox = new JComboBox<>(generos);
+        generoComboBox.setBackground(colorDrop);
+        generoComboBox.setForeground(buttonTextColor);
+
+        String[] tiposTratamento = {"Fisioterapia", "RPG", "Acupuntura"};
+        JComboBox<String> tratamentoComboBox = new JComboBox<>(tiposTratamento);
+        tratamentoComboBox.setBackground(colorDrop);
+        tratamentoComboBox.setForeground(buttonTextColor);
 
         JPanel panel = new JPanel(new GridLayout(7, 2, 10, 10));
         panel.add(new JLabel("Nome:"));
