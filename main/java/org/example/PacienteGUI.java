@@ -153,7 +153,7 @@ public class PacienteGUI extends JFrame {
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
-        Color colorDrop = new Color(42, 148, 108, 233);
+        Color colorDrop = new Color(49, 146, 110, 233);
 
 
         // Dropdown para selecionar o dia da semana
@@ -406,7 +406,7 @@ public class PacienteGUI extends JFrame {
         Color buttonColor1 = new Color(0, 191, 124);
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
-        Color colorDrop = new Color(42, 148, 108, 233);
+        Color colorDrop = new Color(49, 146, 110, 233);
 
 
         pacientesTable = new JTable() {
