@@ -10,11 +10,11 @@
  
 ---
 
-- ### Integração com Banco de Dados
-  - #### Estabelecer a conexão - (02/05)✅
-  - #### Criação da Tabela Pacientes - (14/05) ✅
+- ### Integração com Banco de Dados ✅
+  - #### Estabelecer a conexão - (02/05)
+  - #### Criação da Tabela Pacientes - (14/05) 
   - #### Criar funções para realizar o CRUD - (14/05) ~ correções (26/05)
-  - #### Realizar Validações 
+  - #### Realizar Validações - (26/04)
 --- 
 
 - ### Criação do Frontend (Interface Visual) ✅
@@ -25,6 +25,6 @@
 ---
 - ### Planejar a Apresentação do Projeto (Sala de Aula)
   - #### Montar apresentação (PDF)
-  - #### Gravar Videos de Exemplo
-  - #### Roteiro de Apresentação
+  - #### Gravar Videos de Exemplo ✅
+  - #### Roteiro de Apresentação 
 
