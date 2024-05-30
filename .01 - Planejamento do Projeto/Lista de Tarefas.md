@@ -24,7 +24,7 @@
   - #### Tornar o Ambiente mais amigável para o usuário final -> (24/05) 
 ---
 - ### Planejar a Apresentação do Projeto (Sala de Aula)
-  - #### Montar apresentação (PDF)
+  - #### Montar apresentação (PDF) ✅
   - #### Gravar Videos de Exemplo ✅
   - #### Roteiro de Apresentação 
 
