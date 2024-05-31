@@ -26,5 +26,5 @@
 - ### Planejar a Apresentação do Projeto (Sala de Aula)
   - #### Montar apresentação (PDF) ✅
   - #### Gravar Videos de Exemplo ✅
-  - #### Roteiro de Apresentação 
+  - #### Roteiro de Apresentação ✅
 
