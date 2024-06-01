@@ -1,5 +1,14 @@
 # Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia
 
+## Execução do Programa:
+  
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=d6Is6V5wG5Q" target = "_blank">
+    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/547346ec-0e9c-4826-927a-aff52f204d65", width= 720px>
+  </a>
+</p>
+
+
 Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia desenvolvido como parte de um projeto extensionista da faculdade. O projeto é feito para um cliente e é puramente acadêmico e sem fins lucrativos, focado em solucionar problemas na sociedade utilizando a área de programação orientada a objetos em Java, bem como na integração com banco de dados e criação de interfaces visuais.
 
 
