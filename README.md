@@ -1,5 +1,14 @@
 # Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia
 
+## Execução do Programa:
+  
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=d6Is6V5wG5Q" target = "_blank">
+    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/547346ec-0e9c-4826-927a-aff52f204d65", width= 720px>
+  </a>
+</p>
+
+
 Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia desenvolvido como parte de um projeto extensionista da faculdade. O projeto é feito para um cliente e é puramente acadêmico e sem fins lucrativos, focado em solucionar problemas na sociedade utilizando a área de programação orientada a objetos em Java, bem como na integração com banco de dados e criação de interfaces visuais.
 
 
@@ -23,6 +32,7 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/2d642e3f-a001-4765-a738-f417088807ee" alt="Visualização de Pacientes" style="width: 500px; height: auto;">
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/e88c29a0-8e85-4faf-9ccf-6a0a662375a0" alt="Integração com Banco de Dados" style="width: 500px; height: auto;">
     <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/f7fed49f-1695-4e86-b0d4-10edcf8b978c" alt="Interface Visual Amigável" style="width: 500px; height: auto;">
+    <img src="https://github.com/LMolinaro01/Gerenciamento-de-Pacientes/assets/126402616/8ea4b5ad-f5fa-4a34-a7f6-af229260f1f3" alt="Interface Visual Amigável" style="width: 500px; height: auto;">
     
 
 </div>
