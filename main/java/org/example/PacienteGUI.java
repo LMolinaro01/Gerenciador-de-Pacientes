@@ -37,10 +37,10 @@ public class PacienteGUI extends JFrame {
     private JButton cadastrarButton, editarButton, excluirButton, exibirButton, fecharButton;
     private JTable pacientesTable;
     private JPanel topPanel, buttonPanel;
-    
+
     //certos elementos foram criados a partir de códigos fornecidos pelo professor em sala de aula
     //outras funcionalidades possuem autoria minha, certos recursos tirei da documentação de swing da Oracle
-    
+
     public static void iniciarGUI(){
         SwingUtilities.invokeLater(()->{
             new PacienteGUI().setVisible(true);
@@ -78,7 +78,7 @@ public class PacienteGUI extends JFrame {
         topPanel = new JPanel(new BorderLayout());
         topPanel.add(tituloLabel, BorderLayout.NORTH);
         topPanel.add(imagemLabel, BorderLayout.CENTER);
-        
+
         //Criação dos Botões
         cadastrarButton = new JButton("Adicionar");
         cadastrarButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -152,7 +152,7 @@ public class PacienteGUI extends JFrame {
     }
 
     private void cadastrarPaciente() {
-        
+
         JTextField nomeField = new JTextField();
         JTextField idadeField = new JTextField();
         JTextField celularField = new JTextField();
@@ -254,7 +254,7 @@ public class PacienteGUI extends JFrame {
                 return false; // impede a edição das células clicando duas vezes
             }
         };
-        
+
         JScrollPane scrollPane = new JScrollPane(pacientesTable); // coloca a tabela em um scroll pane
         scrollPane.setPreferredSize(new Dimension(600, 300)); // define o tamanho do scroll pane
         pacientesTable.getTableHeader().setReorderingAllowed(false); // não deixa arrastar as colunas
@@ -370,8 +370,13 @@ public class PacienteGUI extends JFrame {
                             }
                             break;
                         case "Tratamento":
-                            String tratamento = JOptionPane.showInputDialog("Digite o novo nome do tratamento:", pacienteExistente.getTratamento());
-                            if (tratamento != null) {
+                            String[] tiposTratamento = {"Fisioterapia", "RPG", "Acupuntura"};
+                            JComboBox<String> tratamentoComboBox = new JComboBox<>(tiposTratamento);
+
+                            int resultTratamento = JOptionPane.showConfirmDialog(null, tratamentoComboBox, "Selecione o novo tratamento", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                            if (resultTratamento == JOptionPane.OK_OPTION) {
+                                String tratamento = (String) tratamentoComboBox.getSelectedItem();
                                 pacienteExistente.setTratamento(tratamento);
                                 PacienteDAO.atualizarPaciente(pacienteExistente);
                                 atualizarTabelaPacientes();
@@ -379,16 +384,27 @@ public class PacienteGUI extends JFrame {
                                 JOptionPane.showMessageDialog(this, "Tratamento inválido.");
                             }
                             break;
+
                         case "Gênero":
-                            String genero = JOptionPane.showInputDialog("Digite o gênero:", pacienteExistente.getGenero());
-                            if (genero != null && !genero.isEmpty()) {
-                                pacienteExistente.setGenero(genero);
-                                PacienteDAO.atualizarPaciente(pacienteExistente);
-                                atualizarTabelaPacientes();
+                            String[] generos = {"Masculino", "Feminino", "Não Binário", "Homem Trans", "Mulher Trans", "Outro"};
+                            JComboBox<String> generoComboBox = new JComboBox<>(generos);
+
+                            int resultGenero = JOptionPane.showConfirmDialog(null, generoComboBox, "Selecione o gênero", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                            if (resultGenero == JOptionPane.OK_OPTION) {
+                                String genero = (String) generoComboBox.getSelectedItem();
+                                if (genero != null && !genero.isEmpty()) {
+                                    pacienteExistente.setGenero(genero);
+                                    PacienteDAO.atualizarPaciente(pacienteExistente);
+                                    atualizarTabelaPacientes();
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "Gênero inválido.");
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(this, "Gênero inválido.");
+                                JOptionPane.showMessageDialog(this, "Ação cancelada.");
                             }
                             break;
+
                         case "Dia":
                             String dia = JOptionPane.showInputDialog("Digite o dia:", pacienteExistente.getDia());
                             if (dia != null && !dia.isEmpty()) {
