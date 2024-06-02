@@ -34,9 +34,13 @@ import java.awt.event.MouseAdapter;
 
 
 public class PacienteGUI extends JFrame {
-    private JButton cadastrarButton, editarButton, excluirButton, exibirButton;
+    private JButton cadastrarButton, editarButton, excluirButton, exibirButton, fecharButton;
     private JTable pacientesTable;
-
+    private JPanel topPanel, buttonPanel;
+    
+    //certos elementos foram criados a partir de códigos fornecidos pelo professor em sala de aula
+    //outras funcionalidades possuem autoria minha, certos recursos tirei da documentação de swing da Oracle
+    
     public static void iniciarGUI(){
         SwingUtilities.invokeLater(()->{
             new PacienteGUI().setVisible(true);
@@ -62,6 +66,7 @@ public class PacienteGUI extends JFrame {
         tituloLabel.setFont(new Font("Times New Roman", Font.BOLD, 26));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        //Imagem Principal
         ImageIcon icon = new ImageIcon("src/main/java/org/example/LOGO_Fisioterapia.jpg");
         Image image = icon.getImage();
         Image newimg = image.getScaledInstance(300, 300, java.awt.Image.SCALE_SMOOTH);
@@ -69,11 +74,12 @@ public class PacienteGUI extends JFrame {
         JLabel imagemLabel = new JLabel(icon, JLabel.CENTER);
         imagemLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-
-        JPanel topPanel = new JPanel(new BorderLayout());
+        //Painel do Topo (Título e Image)
+        topPanel = new JPanel(new BorderLayout());
         topPanel.add(tituloLabel, BorderLayout.NORTH);
         topPanel.add(imagemLabel, BorderLayout.CENTER);
-
+        
+        //Criação dos Botões
         cadastrarButton = new JButton("Adicionar");
         cadastrarButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         cadastrarButton.setBackground(buttonColor1);
@@ -95,7 +101,7 @@ public class PacienteGUI extends JFrame {
         exibirButton.setBorder(BorderFactory.createLineBorder(borderColor));
         exibirButton.setFocusPainted(false);
 
-        JButton fecharButton = new JButton("Fechar Programa"); //crei o botão de outra maneira
+        fecharButton = new JButton("Fechar Programa"); //crei o botão de outra maneira
         fecharButton.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         fecharButton.setBackground(buttonColor4);
         fecharButton.setForeground(buttonTextColor);
@@ -103,7 +109,7 @@ public class PacienteGUI extends JFrame {
         fecharButton.setFocusPainted(false);
 
 
-        JPanel buttonPanel = new JPanel(new GridLayout(4, 1, 30, 30)); //(linha, coluna, padx, pady)
+        buttonPanel = new JPanel(new GridLayout(4, 1, 30, 30)); //(linha, coluna, padx, pady)
         buttonPanel.add(cadastrarButton);
         buttonPanel.add(editarButton);
         buttonPanel.add(exibirButton);
@@ -146,6 +152,7 @@ public class PacienteGUI extends JFrame {
     }
 
     private void cadastrarPaciente() {
+        
         JTextField nomeField = new JTextField();
         JTextField idadeField = new JTextField();
         JTextField celularField = new JTextField();
@@ -162,11 +169,13 @@ public class PacienteGUI extends JFrame {
         diaComboBox.setBackground(colorDrop);
         diaComboBox.setForeground(buttonTextColor);
 
+        // Dropdown Gênero
         String[] generos = {"Masculino", "Feminino", "Não Binário", "Homem Trans", "Mulher Trans", "Outro"};
         JComboBox<String> generoComboBox = new JComboBox<>(generos);
         generoComboBox.setBackground(colorDrop);
         generoComboBox.setForeground(buttonTextColor);
 
+        // Dropdown Tratamento
         String[] tiposTratamento = {"Fisioterapia", "RPG", "Acupuntura"};
         JComboBox<String> tratamentoComboBox = new JComboBox<>(tiposTratamento);
         tratamentoComboBox.setBackground(colorDrop);
@@ -238,12 +247,14 @@ public class PacienteGUI extends JFrame {
         Color buttonTextColor = Color.WHITE;
         Color borderColor = new Color(0, 69, 44);
 
+        //Mudança no Padrão da Tabela
         pacientesTable = new JTable(){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // impede a edição das células clicando duas vezes
             }
         };
+        
         JScrollPane scrollPane = new JScrollPane(pacientesTable); // coloca a tabela em um scroll pane
         scrollPane.setPreferredSize(new Dimension(600, 300)); // define o tamanho do scroll pane
         pacientesTable.getTableHeader().setReorderingAllowed(false); // não deixa arrastar as colunas
@@ -272,6 +283,7 @@ public class PacienteGUI extends JFrame {
 
         Dimension buttonSize = new Dimension(600, 50); // tamanho máximo dos botões
 
+        //Criação dos Botões
         JButton editarPacienteButton = new JButton("Editar Paciente");
         editarPacienteButton.setBackground(buttonColor1);
         editarPacienteButton.setForeground(buttonTextColor);
@@ -408,7 +420,7 @@ public class PacienteGUI extends JFrame {
         Color borderColor = new Color(0, 69, 44);
         Color colorDrop = new Color(49, 146, 110, 233);
 
-
+        //Mudança no Padrão da Tabela
         pacientesTable = new JTable() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -478,7 +490,8 @@ public class PacienteGUI extends JFrame {
     private void ordenarPacientes(String criterio) {
         List<Pacientes> pacientesList = PacienteDAO.listarPacientes();
 
-        DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Faixa Etária", "Dia"}, 0);
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new Object[]{"ID", "Nome", "Idade", "Celular", "Gênero", "Tratamento", "Faixa Etária", "Dia"}, 0);
 
         pacientesTable.setModel(tableModel);
         pacientesTable.repaint();
