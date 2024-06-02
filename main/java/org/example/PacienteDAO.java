@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class PacienteDAO {
 
-    //certas linhas de códigos foram adaptadas a partir de códigos vistos em aula, principalmente o CRUD
+    //certas linhas de códigos foram adaptadas a partir de códigos vistos em aula
+    //outros modificados a partir do repositório fornecido pelo professor, principalmente o CRUD
 
     private static final Map<String, String> queries = new HashMap<>();
 
