@@ -10,7 +10,6 @@ public class Pacientes {
     private String dia;
     private int idade;
     private int frequencia;
-    //private String fisioResponsavel;
 
     public Pacientes(int id, String nome, String tratamento, String celular, String genero, int idade, String dia){
         this.id = id;
@@ -75,14 +74,8 @@ public class Pacientes {
     }
 
     public void setCelular(String celular) {
-        //String validacaoCel = "^\\\\(?[1-9]{2}\\\\)? ?(?:[2-8]|9[0-9])[0-9]{3}\\\\-?[0-9]{4}$";
         try {
-            //if (celular.matches(validacaoCel)){
             this.celular = celular;
-            //}
-            //else{
-            //System.out.println("Número de Celular inválido.");
-            //}
         } catch (Exception e){
             System.out.println("Houve um Erro na validação do Celular.");
             e.printStackTrace();
@@ -112,8 +105,12 @@ public class Pacientes {
 
     public void setFaixaEtaria() {
         try {
-            if (idade >= 65) {
-                faixaEtaria = "Idoso";
+            if (idade >= 80) {
+                faixaEtaria = "Quarta Idade";
+            } else if (idade >= 65) {
+                faixaEtaria = "Terceira Idade";
+            } else if (idade >= 45) {
+                faixaEtaria = "Meia-idade";
             } else if (idade >= 25) {
                 faixaEtaria = "Adulto";
             } else if (idade >= 18) {
@@ -142,8 +139,11 @@ public class Pacientes {
 
     public void setIdade(int idade) {
         try {
-            if (idade > 0 && idade < 125) {
+            if (idade > 0 && idade < 145) {
                 this.idade = idade;
+            }
+            else{
+                System.out.println("Idade Inválida.");
             }
 
         } catch (ClassCastException e){
@@ -159,7 +159,7 @@ public class Pacientes {
     public void setDia(String dia) {
         try{
             if (dia.matches(".*[;,'\\+\\.].*")){
-                System.out.println("O Gênero não pode conter caracteres especiais.");
+                System.out.println("O Dia não pode conter caracteres especiais.");
             }
             else {
                 this.dia = dia;
@@ -168,30 +168,7 @@ public class Pacientes {
             e.printStackTrace();
         }
     }
-
-
-    /*public String getFisioResponsavel(){
-        return fisioResponsavel;
-    }
-
-    public void setFisioResponsavel(String fisioResponsavel){
-        try{
-            if (!fisioResponsavel.equals(null) && !fisioResponsavel.isEmpty()){
-                if (fisioResponsavel.matches(".*[;,'\\-+\\.].*")){
-                    System.out.println("O Nome do Profissional Responsável não pode conter caracteres especiais.");
-                }
-                else {
-                    this.fisioResponsavel = fisioResponsavel;
-                }
-            }else {
-                System.out.println("O Nome do Profissional Responsável não pode estar vazio.");
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
-
-
+    
 
     @Override
     public String toString(){
