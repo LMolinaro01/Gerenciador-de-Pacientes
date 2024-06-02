@@ -406,15 +406,25 @@ public class PacienteGUI extends JFrame {
                             break;
 
                         case "Dia":
-                            String dia = JOptionPane.showInputDialog("Digite o dia:", pacienteExistente.getDia());
-                            if (dia != null && !dia.isEmpty()) {
-                                pacienteExistente.setDia(dia); // Corrigido para definir o dia
-                                PacienteDAO.atualizarPaciente(pacienteExistente);
-                                atualizarTabelaPacientes();
+                            String[] diasSemana = {"Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+                            JComboBox<String> diaComboBox = new JComboBox<>(diasSemana);
+
+                            int resultDia = JOptionPane.showConfirmDialog(null, diaComboBox, "Selecione o dia", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                            if (resultDia == JOptionPane.OK_OPTION) {
+                                String dia = (String) diaComboBox.getSelectedItem();
+                                if (dia != null && !dia.isEmpty()) {
+                                    pacienteExistente.setDia(dia);
+                                    PacienteDAO.atualizarPaciente(pacienteExistente);
+                                    atualizarTabelaPacientes();
+                                } else {
+                                    JOptionPane.showMessageDialog(this, "Dia inválido.");
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(this, "Dia inválido.");
+                                JOptionPane.showMessageDialog(this, "Ação cancelada.");
                             }
                             break;
+
                     }
                 }
             } else {
