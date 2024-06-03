@@ -1,4 +1,4 @@
-# Sistema de Registro e Gerenciamento de Pacientes de Fisioterapia
+# Sistema de Gerenciamento de Pacientes de Fisioterapia
 
 ## Execução do Programa:
   
