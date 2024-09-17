@@ -49,9 +49,13 @@ Este é um projeto de Sistema de Registro e Gerenciamento de Pacientes de Fisiot
 
 - **MVC (Model View Controller)**: Padrão Arquitetônico utilizado no Projeto 
 
+## **Contato**
+
+Se você tiver dúvidas ou precisar de mais informações, sinta-se a vontade para entrar em [Contato](https://linktr.ee/leomolinarodev01)!
+
 ## Contribuição
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue para relatar problemas, sugerir novas funcionalidades ou enviar pull requests com melhorias para o código.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue para relatar problemas, sugerir novas funcionalidades ou enviar pull requests com melhorias para o código. 
 
 ## Licença
 
